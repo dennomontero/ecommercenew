@@ -1,0 +1,158 @@
+{% extends 'base.html'%}
+{% block content%}
+<style>
+.container{
+    color:black;
+    height:70vh;
+}
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.card{
+    height:350px;
+    width:220px;
+    margin:10px;
+    /* border:1px solid grey; */
+    display:flex;
+    justify-content:center;
+    /* align-items: center; */
+    flex-direction: column;
+    /* background:rgb(14, 9, 9); */
+   
+}
+.card:hover{
+    height: 370px;
+    width:250px;
+
+}
+/* a{
+    color:black;
+} */
+
+.qty_cart{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin:10px; */
+    flex-direction: row;
+    text-align: center;
+   
+}
+.cart_btn{
+    background:rgb(5, 196, 5);
+    width:100%;
+    height:40px;
+    margin: 5px;
+    display:flex;
+    /* text-align: center; */
+    justify-content: center;
+    align-items: center;
+}
+.qty{
+    border:1px solid black;
+    width:100%;
+    height:40px;
+    margin:5px;
+    /* text-align: center; */
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.price{
+    display:flex;
+    flex-direction: column;
+    margin-bottom:5px;
+}
+.image_item{
+    /* width:400px; */
+    height:400px; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background:rgb(7, 197, 7); */
+}
+.tittle{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.item_price{
+    display:flex;
+    flex-direction: row;
+
+}
+.item_on_stock{
+    display:flex;
+    flex-direction: row;
+    
+}
+.inner_item_onstock{
+    margin-left:15px;
+}
+.inner_item_price{
+    margin-left:15px;
+}
+</style>
+<div class="container">
+    <div class="main">
+     {% if object_list %}
+        {% for items in object_list %}
+            <div class="card">
+                <div class="tittle">
+               <h2><a href="{{items.get_absolute_url}}">{{items.title}}</a></h2>
+            </div>
+               <div class="image_item">
+                   <!-- <img src="{{items.image" alt="item img"> -->
+                   <img src="{{ items.image.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" /> 
+               </div>
+
+               <div class="item_on_stock">
+                    <!-- <div><i class="fas fa-skiing fa-fw" style="background:SkyBlue"></i> Skiing</div> -->
+                    <i class="fa fa-cubes fa-3x" aria-hidden="true" ></i>
+                    <div class="inner_item_onstock">
+                    on stock:<p> <a href="{{items.get_absolute_url}}">{{items.on_stock}}</a> </p>
+                     </div>
+              </div>
+               
+             
+               <div class="price">
+                  
+                {% if items.discount_price %} 
+                     <!-- <del>{{items.price}}</del> -->
+                     <div class="item_price">
+                        <i class="fa fa-shopping-cart fa-3x"  aria-hidden="true"></i>
+                       <div class="inner_item_price">
+                            Price<p> <a href="{{items.get_absolute_url}}"> {{items.discount_price}}</a> </p>
+                       </div>
+                    </div>
+                    
+
+                {% else %}
+                <div class="item_price">
+                    <i class="fa fa-shopping-cart fa-3x"  aria-hidden="true"></i>
+                   <div class="inner_item_price">
+                        Price<p> <a href="{{items.get_absolute_url}}"> {{items.price}}</a> </p>
+                   </div>
+                </div>
+
+                {% endif %}
+               </div>  
+
+                 <div class="qty_cart">
+                        <div class="qty">Qty  1{{items.quantity}}</div>
+                        <div class="cart_btn"><a href="{{items.get_add_to_cart_url}}">add to cart</a></div>
+                 </div>
+            </div>
+   
+        {% endfor%}
+     {% else%}  
+     <p>no record found</p> 
+     {% endif %}
+    </div>
+</div>
+{% endblock content%}

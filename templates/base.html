@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static '/css/base.css' %}">
+    <link rel="stylesheet" href="{% static '/css/fontawesome/css/all.css' %}">
+     <title>Ecomapp</title>
+    {%block extra_css%}
+   
+    {%endblock extra_css%}
+</head>
+<body>
+
+    <div class="header">
+        <div class="title">
+            <li><a href="#">Hello</a></li>
+        </div>
+        <div class="pages">
+            <li><a href="{% url 'webapp:home' %}">Home</a></li>
+            <li><a href="{% url 'webapp:about' %}">About us</a></li>
+            <li><a href="{% url 'webapp:contact' %}">Contact us</a></li>
+            <li><a href="#">shoe</a></li>
+            <li><a href="#">jacket</a></li>
+            <li><a href="#">Hats</a></li>
+        </div>
+
+
+        <div class="logs">
+                <div class="cart_no">12</div>
+                <li><a href="{% url 'webapp:cart_item' %}">cart</a></li>
+                {% if user.is_authenticated %}
+                    <li><i class="fa fa-sign-out" aria-hidden="true"></i>
+                        <a href="# ">logout</a></li>
+                {% else %}
+                     <li><a href="#"></a>">login</a></li>
+                     <li><a href="#"></a>">register</a></li>
+               {% endif %}
+            </div>
+    </div>
+    {% block content %}
+    {% endblock content %}
+    <div class="footer">
+        <div class="contact">
+            <h1>Contact Us</h1>
+            Hello@gmail.com</br>
+            0200284635</br>
+            facebook:hellolad</br>
+            instagram:@hellolad
+        </div>
+        <div class="about_us">
+            <h1>About Us</h1>
+            What do we do?</br>
+            What are our main products?</br>
+            How doe we deliver products?</br>
+            How long does it take to get your product?
+        </div>
+        <div class="help">
+            <h1>Help</h1>
+            How do i shop?</br>
+            How do i pay?</br>
+            How do i get my products?
+        </div>
+    </div>
+</body>
+
+</html>
